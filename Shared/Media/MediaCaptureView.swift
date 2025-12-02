@@ -11,53 +11,44 @@ import SwiftData
 import AVFoundation
 import UIKit
 
-/// A reusable media intake sheet supporting:
-/// - photo camera
-/// - video camera
-/// - photo picker
-/// Saves results via MediaManager + creates NPMediaItem records.
+/// A reusable media intake sheet supporting capture and library attachments.
 struct MediaCaptureView: View {
+
+    enum Mode {
+        case photo
+        case video
+        case audio
+        case library
+    }
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
-    /// Called whenever a new NPMediaItem has been created & saved.
-    var onSaved: ((NPMediaItem) -> Void)? = nil
+    @Bindable var field: NPJobFormFieldInstance
+    let mode: Mode
+
+    /// Called after the media item has been persisted so the parent can refresh.
+    var onSave: (() -> Void)? = nil
 
     // MARK: UI State
 
     @State private var showPhotoCamera = false
     @State private var showVideoCamera = false
+    @State private var showLibraryPicker = false
     @State private var pickerItem: PhotosPickerItem? = nil
+
+    @State private var isRecording = false
+    @State private var recorder: AVAudioRecorder?
+    @State private var tempAudioURL: URL?
 
     var body: some View {
         VStack(spacing: 20) {
 
-            Text("Add Media")
+            Text(headerTitle)
                 .font(.title2.bold())
                 .foregroundColor(.white)
 
-            // MARK: Take Photo
-            Button {
-                showPhotoCamera = true
-            } label: {
-                bigButtonLabel("Take Photo", system: "camera")
-            }
-
-            // MARK: Record Video
-            Button {
-                showVideoCamera = true
-            } label: {
-                bigButtonLabel("Record Video", system: "video")
-            }
-
-            // MARK: Choose from Library
-            PhotosPicker(
-                selection: $pickerItem,
-                matching: .images
-            ) {
-                bigButtonLabel("Choose Photo from Library", system: "photo")
-            }
+            modeSpecificControls
 
             Spacer()
         }
@@ -79,15 +70,78 @@ struct MediaCaptureView: View {
             }
         }
 
-        // MARK: Library Change
+        // MARK: Library Picker
+        .photosPicker(isPresented: $showLibraryPicker,
+                      selection: $pickerItem,
+                      matching: .images) { EmptyView() }
         .onChange(of: pickerItem) { _, newItem in
             Task { await processPickerItem(newItem) }
         }
+        .onAppear { triggerModePresentation() }
     }
 
     // ============================================================
-    // MARK: - UI Helper
+    // MARK: - UI Helpers
     // ============================================================
+    private var headerTitle: String {
+        switch mode {
+        case .photo: return "Capture Photo"
+        case .video: return "Capture Video"
+        case .audio: return "Record Audio"
+        case .library: return "Attach from Library"
+        }
+    }
+
+    @ViewBuilder
+    private var modeSpecificControls: some View {
+        switch mode {
+        case .photo:
+            VStack(spacing: 12) {
+                Text("Launching camera…")
+                    .foregroundColor(.gray)
+                Button {
+                    showPhotoCamera = true
+                } label: {
+                    bigButtonLabel("Open Camera", system: "camera")
+                }
+            }
+
+        case .video:
+            VStack(spacing: 12) {
+                Text("Launching video recorder…")
+                    .foregroundColor(.gray)
+                Button {
+                    showVideoCamera = true
+                } label: {
+                    bigButtonLabel("Open Video Camera", system: "video")
+                }
+            }
+
+        case .library:
+            PhotosPicker(
+                selection: $pickerItem,
+                matching: .images
+            ) {
+                bigButtonLabel("Choose Photo from Library", system: "photo.on.rectangle")
+            }
+
+        case .audio:
+            VStack(spacing: 16) {
+                Button {
+                    isRecording ? stopRecording() : startRecording()
+                } label: {
+                    bigButtonLabel(isRecording ? "Stop Recording" : "Start Recording",
+                                   system: isRecording ? "stop.circle" : "waveform")
+                }
+
+                if isRecording {
+                    Text("Recording…")
+                        .foregroundColor(.green)
+                }
+            }
+        }
+    }
+
     private func bigButtonLabel(_ title: String, system: String) -> some View {
         Label {
             Text(title)
@@ -104,6 +158,22 @@ struct MediaCaptureView: View {
     }
 
     // ============================================================
+    // MARK: - Mode Handling
+    // ============================================================
+    private func triggerModePresentation() {
+        switch mode {
+        case .photo:
+            showPhotoCamera = true
+        case .video:
+            showVideoCamera = true
+        case .library:
+            showLibraryPicker = true
+        case .audio:
+            break
+        }
+    }
+
+    // ============================================================
     // MARK: - Camera Result Processor
     // ============================================================
     private func handleCameraResult(_ result: CameraOutput) {
@@ -113,29 +183,28 @@ struct MediaCaptureView: View {
         case .video(let url):
             saveVideo(url)
         case .cancelled:
-            break
+            dismiss()
         }
     }
 
     // ============================================================
-    // MARK: - Save Photo
+    // MARK: - Save Helpers
     // ============================================================
     private func savePhoto(_ image: UIImage) {
         guard let path = MediaManager.shared.savePhoto(image, originalName: "photo") else { return }
         storeMediaRecord(path: path, type: .photo)
     }
 
-    // ============================================================
-    // MARK: - Save Video
-    // ============================================================
     private func saveVideo(_ url: URL) {
         guard let path = MediaManager.shared.saveVideo(from: url, originalName: "video") else { return }
         storeMediaRecord(path: path, type: .video)
     }
 
-    // ============================================================
-    // MARK: - SwiftData Create Record
-    // ============================================================
+    private func saveAudio(_ url: URL) {
+        guard let path = MediaManager.shared.saveAudio(from: url, originalName: "audio") else { return }
+        storeMediaRecord(path: path, type: .audio)
+    }
+
     private func storeMediaRecord(path: String, type: MediaType) {
         let filename = (path as NSString).lastPathComponent
 
@@ -144,18 +213,19 @@ struct MediaCaptureView: View {
             originalFileName: filename,
             filePath: path,
             note: nil,
-            field: nil        // will be associated outside
+            field: field
         )
 
+        field.mediaItems.append(item)
         context.insert(item)
 
         do {
             try context.save()
+            onSave?()
         } catch {
             print("❌ Failed to save NPMediaItem:", error)
         }
 
-        onSaved?(item)
         dismiss()
     }
 
@@ -174,56 +244,49 @@ struct MediaCaptureView: View {
             print("❌ Failed processing picker item:", error)
         }
     }
-}
 
-//
-//  MediaManager extension to support savePhoto / saveVideo
-//
-extension MediaManager {
-
-    /// Directory where we store media files for Night Plinkers.
-    private var mediaDirectory: URL {
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let mediaDir = docs.appendingPathComponent("Media", isDirectory: true)
-
-        if !FileManager.default.fileExists(atPath: mediaDir.path) {
-            try? FileManager.default.createDirectory(at: mediaDir, withIntermediateDirectories: true)
+    // ============================================================
+    // MARK: - Audio Recording
+    // ============================================================
+    private func startRecording() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playAndRecord, mode: .default)
+            try session.setActive(true)
+        } catch {
+            print("❌ Unable to start audio session:", error)
+            return
         }
-        return mediaDir
-    }
 
-    /// Save a UIImage as JPEG and return the full file path string.
-    func savePhoto(_ image: UIImage, originalName: String) -> String? {
-        let filename = "\(originalName)_\(UUID().uuidString).jpg"
-        let url = mediaDirectory.appendingPathComponent(filename)
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent("\(UUID().uuidString).m4a")
 
-        guard let data = image.jpegData(compressionQuality: 0.9) else { return nil }
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
 
         do {
-            try data.write(to: url, options: .atomic)
-            return url.path
+            recorder = try AVAudioRecorder(url: url, settings: settings)
+            recorder?.record()
+            tempAudioURL = url
+            isRecording = true
         } catch {
-            print("❌ Failed to write photo:", error)
-            return nil
+            print("❌ Unable to start recording:", error)
         }
     }
 
-    /// Copy a video file into the media directory and return full file path.
-    func saveVideo(from sourceURL: URL, originalName: String) -> String? {
-        let filename = "\(originalName)_\(UUID().uuidString).mov"
-        let destURL = mediaDirectory.appendingPathComponent(filename)
+    private func stopRecording() {
+        recorder?.stop()
+        isRecording = false
 
-        do {
-            // In case reusing same name, remove existing
-            if FileManager.default.fileExists(atPath: destURL.path) {
-                try FileManager.default.removeItem(at: destURL)
-            }
-            try FileManager.default.copyItem(at: sourceURL, to: destURL)
-            return destURL.path
-        } catch {
-            print("❌ Failed to copy video:", error)
-            return nil
+        guard let url = tempAudioURL else {
+            dismiss()
+            return
         }
+
+        saveAudio(url)
     }
 }
-

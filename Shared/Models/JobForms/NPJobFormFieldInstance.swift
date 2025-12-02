@@ -35,6 +35,10 @@ class NPJobFormFieldInstance {
     /// Whether this field is required, copied from template.
     var isRequired: Bool
 
+    /// Media items captured or attached for this field instance.
+    @Relationship(deleteRule: .cascade, inverse: \NPMediaItem.field)
+    var mediaItems: [NPMediaItem]
+
     // MARK: - Relationship: back to section instance
 
     @Relationship(inverse: \NPJobFormSectionInstance.fields)
@@ -49,7 +53,8 @@ class NPJobFormFieldInstance {
         value: String? = nil,
         note: String? = nil,
         isRequired: Bool = false,
-        section: NPJobFormSectionInstance? = nil
+        section: NPJobFormSectionInstance? = nil,
+        mediaItems: [NPMediaItem] = []
     ) {
         self.id = UUID()
         self.key = key
@@ -59,6 +64,7 @@ class NPJobFormFieldInstance {
         self.note = note
         self.isRequired = isRequired
         self.section = section
+        self.mediaItems = mediaItems
     }
 }
 
