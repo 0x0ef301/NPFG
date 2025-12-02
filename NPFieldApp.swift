@@ -17,6 +17,9 @@ struct NPFieldApp: App {
             NPJobFormInstance.self,
             NPJobFormSectionInstance.self,
             NPJobFormFieldInstance.self,
+            NPFormTemplate.self,
+            NPFormSectionTemplate.self,
+            NPFormFieldTemplate.self,
             NPMediaItem.self
         ])
     }

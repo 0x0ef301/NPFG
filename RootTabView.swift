@@ -16,6 +16,10 @@ struct RootTabView: View {
                 .tabItem {
                     Label("Jobs", systemImage: "briefcase")
                 }
+            FormsLibraryView()
+                .tabItem {
+                    Label("Forms", systemImage: "doc.richtext")
+                }
             ReportsView()
                 .tabItem { Label("Reports", systemImage: "doc.richtext") }
             ProfileView()

@@ -15,7 +15,7 @@ struct FormListView: View {
 
     @Bindable var job: NPJob
 
-    @State private var showNewFormSheet = false
+    @State private var showTemplatePicker = false
 
     var body: some View {
         NavigationStack {
@@ -41,7 +41,7 @@ struct FormListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showNewFormSheet = true
+                        showTemplatePicker = true
                     } label: {
                         Image(systemName: "doc.badge.plus")
                             .font(.title2)
@@ -49,13 +49,11 @@ struct FormListView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showNewFormSheet) {
-                NewFormSheet { newForm in
-                    // Attach the new form to this job
+            .sheet(isPresented: $showTemplatePicker) {
+                TemplatePickerSheet { newForm in
                     newForm.job = job
                     job.forms.append(newForm)
 
-                    // Persist changes
                     try? context.save()
                 }
             }
@@ -74,7 +72,7 @@ struct FormListView: View {
                 .foregroundColor(.white)
                 .font(.title3)
 
-            Text("Tap the + button to add a form for this job.")
+            Text("Tap + to attach a form template from the Forms library.")
                 .foregroundColor(.gray)
                 .font(.subheadline)
         }
