@@ -18,7 +18,7 @@ struct NewFormSheet: View {
         TempSection(title: "New Section", fields: [])
     ]
 
-    var onCreate: (NPForm) -> Void
+    var onCreate: (NPJobFormInstance) -> Void
 
     struct TempSection: Identifiable {
         let id = UUID()
@@ -29,7 +29,7 @@ struct NewFormSheet: View {
     struct TempField: Identifiable {
         let id = UUID()
         var label: String
-        var type: NPFormField.FieldType
+        var type: NPFormFieldTemplate.FieldType
     }
 
     var body: some View {
@@ -51,7 +51,7 @@ struct NewFormSheet: View {
                                 TextField("Field Label", text: $field.label)
 
                                 Picker("", selection: $field.type) {
-                                    ForEach(NPFormField.FieldType.allCases, id: \.self) { t in
+                                    ForEach(NPFormFieldTemplate.FieldType.allCases, id: \.self) { t in
                                         Text(t.rawValue).tag(t)
                                     }
                                 }
@@ -99,16 +99,16 @@ struct NewFormSheet: View {
     // MARK: - Create Form
     private func createForm() {
 
-        let form = NPForm(name: formName)
+        let form = NPJobFormInstance(name: formName)
 
         for temp in tempSections {
-            let section = NPFormSection(title: temp.title)
+            let section = NPJobFormSectionInstance(title: temp.title)
 
             for field in temp.fields {
-                let newField = NPFormField(
+                let newField = NPJobFormFieldInstance(
                     key: UUID().uuidString,       // REQUIRED NOW
                     label: field.label,
-                    type: field.type
+                    typeRaw: field.type.rawValue
                 )
                 section.fields.append(newField)
             }

@@ -13,7 +13,7 @@ struct FormRenderer: View {
     @Environment(\.modelContext) private var context
     @EnvironmentObject var mediaManager: MediaManager
 
-    @Bindable var form: NPForm
+    @Bindable var form: NPJobFormInstance
 
     @State private var showSavedAlert = false
     @State private var scrollID = UUID()

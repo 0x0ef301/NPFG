@@ -28,9 +28,9 @@ struct NPFieldApp: App {
 
                     .modelContainer(for: [
                         NPJob.self,
-                        NPForm.self,
-                        NPFormSection.self,
-                        NPFormField.self,
+                        NPJobFormInstance.self,
+                        NPJobFormSectionInstance.self,
+                        NPJobFormFieldInstance.self,
                         NPMediaItem.self
                     ])
             }
