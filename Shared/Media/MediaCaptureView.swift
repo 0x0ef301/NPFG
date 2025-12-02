@@ -79,7 +79,8 @@ struct MediaCaptureView: View {
         // MARK: Library Picker
         .photosPicker(isPresented: $showLibraryPicker,
                       selection: $pickerItem,
-                      matching: .images) { EmptyView() }
+                      matching: .images,
+                      photoLibrary: .shared())
         .onChange(of: pickerItem) { _, newItem in
             Task { await processPickerItem(newItem) }
         }
