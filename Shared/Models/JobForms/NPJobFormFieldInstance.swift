@@ -41,7 +41,7 @@ class NPJobFormFieldInstance {
 
     // MARK: - Relationship: back to section instance
 
-    @Relationship(inverse: \NPJobFormSectionInstance.fields)
+    @Relationship
     var section: NPJobFormSectionInstance?
 
     // MARK: - Init
