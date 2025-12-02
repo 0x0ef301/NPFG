@@ -31,7 +31,7 @@ class NPFormFieldTemplate {
 
     // MARK: - Relationship back to section template
 
-    @Relationship(inverse: \NPFormSectionTemplate.fields)
+    @Relationship
     var section: NPFormSectionTemplate?
 
     // MARK: - FieldType

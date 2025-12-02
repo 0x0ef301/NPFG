@@ -22,12 +22,12 @@ class NPJobFormSectionInstance {
 
     // MARK: - Relationship: fields in this section
 
-    @Relationship(deleteRule: .cascade, inverse: \NPJobFormFieldInstance.section)
+    @Relationship(deleteRule: .cascade)
     var fields: [NPJobFormFieldInstance]
 
     // MARK: - Relationship: parent job form instance
 
-    @Relationship(inverse: \NPJobFormInstance.sections)
+    @Relationship
     var form: NPJobFormInstance?
 
     // MARK: - Init

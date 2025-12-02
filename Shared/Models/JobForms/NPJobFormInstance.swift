@@ -26,7 +26,7 @@ class NPJobFormInstance {
 
     // MARK: - Relationship: parent Job
 
-    @Relationship(inverse: \NPJob.forms)
+    @Relationship
     var job: NPJob?
 
     // MARK: - Relationship: sections (deep copies from template)

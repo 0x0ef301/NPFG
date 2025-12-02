@@ -21,12 +21,12 @@ class NPFormSectionTemplate {
 
     // MARK: - Relationship to fields
 
-    @Relationship(deleteRule: .cascade, inverse: \NPFormFieldTemplate.section)
+    @Relationship(deleteRule: .cascade)
     var fields: [NPFormFieldTemplate]
 
     // MARK: - Relationship back to parent form template
 
-    @Relationship(inverse: \NPFormTemplate.sections)
+    @Relationship
     var form: NPFormTemplate?
 
     // MARK: - Init
