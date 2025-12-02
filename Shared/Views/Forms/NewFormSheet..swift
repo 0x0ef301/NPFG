@@ -108,7 +108,7 @@ struct NewFormSheet: View {
                 let newField = NPJobFormFieldInstance(
                     key: UUID().uuidString,       // REQUIRED NOW
                     label: field.label,
-                    typeRaw: field.type.rawValue
+                    typeRaw: rendererType(for: field.type).rawValue
                 )
                 section.fields.append(newField)
             }
@@ -123,6 +123,20 @@ struct NewFormSheet: View {
 
         onCreate(form)
         dismiss()
+    }
+
+    // MARK: - Helpers
+    private func rendererType(for templateType: NPFormFieldTemplate.FieldType) -> FieldType {
+        switch templateType {
+        case .text:
+            return .text
+        case .number:
+            return .number
+        case .mediaNote:
+            return .media
+        default:
+            return .text
+        }
     }
 }
 
