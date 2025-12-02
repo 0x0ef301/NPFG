@@ -65,15 +65,15 @@ struct FormRenderer: View {
 
     @ViewBuilder
     private var formSections: some View {
-        ForEach(form.sections) { section in
+        ForEach($form.sections, id: \.id) { $section in
             VStack(alignment: .leading, spacing: 16) {
-                Text(section.title)
+                Text(section.wrappedValue.title)
                     .font(.title3.bold())
                     .foregroundColor(.green)
                     .padding(.horizontal)
 
-                ForEach(section.fields) { field in
-                    FieldRenderer(form: form, field: field)
+                ForEach($section.fields, id: \.id) { $field in
+                    FieldRenderer(field: field)
                         .environmentObject(mediaManager)
                         .padding(.horizontal)
                 }
