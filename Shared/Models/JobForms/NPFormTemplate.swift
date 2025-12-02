@@ -24,6 +24,9 @@ class NPFormTemplate {
     /// Optional description for the operator.
     var detail: String?
 
+    /// Semantic version that increments whenever the template is edited.
+    var version: Int
+
     // MARK: - Timestamps
 
     var created: Date = Date()
@@ -39,6 +42,7 @@ class NPFormTemplate {
     init(
         name: String,
         detail: String? = nil,
+        version: Int = 1,
         created: Date = Date(),
         lastEdited: Date = Date(),
         sections: [NPFormSectionTemplate] = []
@@ -46,6 +50,7 @@ class NPFormTemplate {
         self.id = UUID()
         self.name = name
         self.detail = detail
+        self.version = version
         self.created = created
         self.lastEdited = lastEdited
         self.sections = sections
@@ -53,12 +58,53 @@ class NPFormTemplate {
 
     // MARK: - Helpers
 
-    func updateTimestamp() {
+    func markEdited() {
         lastEdited = Date()
+        version += 1
     }
 
     var isValidTemplate: Bool {
         sections.contains { !$0.fields.isEmpty }
+    }
+}
+
+// MARK: - Conversion to job instances
+extension NPFormTemplate {
+    /// Creates a job-specific form instance cloned from this template.
+    /// Relationships to sections and fields are deep-copied so the job can
+    /// evolve independently while still tracking the originating template.
+    func makeJobInstance(for job: NPJob? = nil) -> NPJobFormInstance {
+        let jobForm = NPJobFormInstance(
+            name: name,
+            job: job,
+            created: Date(),
+            lastEdited: Date(),
+            sections: []
+        )
+
+        jobForm.templateID = id
+        jobForm.templateVersion = version
+        jobForm.templateLastEdited = lastEdited
+
+        for sectionTemplate in sections {
+            let sectionInstance = NPJobFormSectionInstance(title: sectionTemplate.title, form: jobForm)
+
+            for fieldTemplate in sectionTemplate.fields {
+                let fieldInstance = NPJobFormFieldInstance(
+                    key: fieldTemplate.key,
+                    label: fieldTemplate.label,
+                    typeRaw: fieldTemplate.type.rawValue,
+                    isRequired: fieldTemplate.isRequired,
+                    section: sectionInstance
+                )
+                sectionInstance.fields.append(fieldInstance)
+            }
+
+            jobForm.sections.append(sectionInstance)
+        }
+
+        jobForm.updateTimestamp()
+        return jobForm
     }
 }
 
