@@ -8,6 +8,15 @@
 import SwiftUI
 import SwiftData
 
+enum FieldType: String {
+    case text
+    case number
+    case photo
+    case video
+    case audio
+    case media
+}
+
 struct FieldRenderer: View {
 
     @Environment(\.modelContext) private var context
@@ -107,10 +116,10 @@ extension FieldRenderer {
             }
 
             // MEDIA THUMBNAIL SCROLLER
-            if let items = field.mediaItems, !items.isEmpty {
+            if !field.mediaItems.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
-                        ForEach(items) { item in
+                        ForEach(field.mediaItems) { item in
                             mediaThumbnail(item)
                         }
                     }
@@ -120,24 +129,16 @@ extension FieldRenderer {
 
         // CAPTURE SHEETS
         .sheet(isPresented: $showPhotoCapture) {
-            MediaCaptureView(mode: .photo, field: field) {
-                save()
-            }
+            MediaCaptureView(mode: .photo, field: field, onSave: save)
         }
         .sheet(isPresented: $showVideoCapture) {
-            MediaCaptureView(mode: .video, field: field) {
-                save()
-            }
+            MediaCaptureView(mode: .video, field: field, onSave: save)
         }
         .sheet(isPresented: $showAudioCapture) {
-            MediaCaptureView(mode: .audio, field: field) {
-                save()
-            }
+            MediaCaptureView(mode: .audio, field: field, onSave: save)
         }
         .sheet(isPresented: $showLibraryPicker) {
-            MediaCaptureView(mode: .library, field: field) {
-                save()
-            }
+            MediaCaptureView(mode: .library, field: field, onSave: save)
         }
     }
 
