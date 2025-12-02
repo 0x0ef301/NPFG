@@ -84,7 +84,7 @@ struct FormListView: View {
     }
 
     // MARK: - Form Row
-    private func formRow(_ form: NPForm) -> some View {
+    private func formRow(_ form: NPJobFormInstance) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text(form.name)
