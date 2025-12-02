@@ -30,6 +30,12 @@ struct MediaCaptureView: View {
     /// Called after the media item has been persisted so the parent can refresh.
     var onSave: (() -> Void)? = nil
 
+    init(field: NPJobFormFieldInstance, mode: Mode, onSave: (() -> Void)? = nil) {
+        self._field = Bindable(field)
+        self.mode = mode
+        self.onSave = onSave
+    }
+
     // MARK: UI State
 
     @State private var showPhotoCamera = false
