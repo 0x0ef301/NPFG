@@ -193,7 +193,24 @@ extension FieldRenderer {
 // ================================================================
 extension NPJobFormFieldInstance {
     var fieldType: FieldType {
-        FieldType(rawValue: typeRaw) ?? .text
+        // First try to map directly to a FieldType raw value
+        if let direct = FieldType(rawValue: typeRaw) {
+            return direct
+        }
+
+        // Fallback: map template field types to renderable field types
+        if let templateType = NPFormFieldTemplate.FieldType(rawValue: typeRaw) {
+            switch templateType {
+            case .text: return .text
+            case .number: return .number
+            case .checkbox, .date, .time, .yesNo, .location, .signature:
+                return .text
+            case .mediaNote:
+                return .media
+            }
+        }
+
+        return .text
     }
 }
 
