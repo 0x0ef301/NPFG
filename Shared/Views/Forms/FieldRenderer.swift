@@ -129,16 +129,16 @@ extension FieldRenderer {
 
         // CAPTURE SHEETS
         .sheet(isPresented: $showPhotoCapture) {
-            MediaCaptureView(mode: .photo, field: field, onSave: save)
+            MediaCaptureView(field: field, mode: .photo, onSave: save)
         }
         .sheet(isPresented: $showVideoCapture) {
-            MediaCaptureView(mode: .video, field: field, onSave: save)
+            MediaCaptureView(field: field, mode: .video, onSave: save)
         }
         .sheet(isPresented: $showAudioCapture) {
-            MediaCaptureView(mode: .audio, field: field, onSave: save)
+            MediaCaptureView(field: field, mode: .audio, onSave: save)
         }
         .sheet(isPresented: $showLibraryPicker) {
-            MediaCaptureView(mode: .library, field: field, onSave: save)
+            MediaCaptureView(field: field, mode: .library, onSave: save)
         }
     }
 
