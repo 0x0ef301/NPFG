@@ -67,7 +67,7 @@ struct FormRenderer: View {
     private var formSections: some View {
         ForEach($form.sections, id: \.id) { $section in
             VStack(alignment: .leading, spacing: 16) {
-                Text(section.wrappedValue.title)
+                Text(section.title)
                     .font(.title3.bold())
                     .foregroundColor(.green)
                     .padding(.horizontal)
