@@ -74,7 +74,7 @@ struct TemplateDetailView: View {
     }
 }
 
-private extension Binding where Value == String? {
+private extension Binding where Value == String {
     init(_ base: Binding<String?>, replacingNilWith placeholder: String) {
         self.init(
             get: { base.wrappedValue ?? placeholder },
