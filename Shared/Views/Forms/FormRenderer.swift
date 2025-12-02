@@ -21,69 +21,13 @@ struct FormRenderer: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-
-                VStack(alignment: .leading, spacing: 28) {
-
-                    //----------------------------------------------------------------------
-                    // MARK: FORM HEADER
-                    //----------------------------------------------------------------------
-                    VStack(alignment: .leading, spacing: 6) {
-
-                        Text(form.name)
-                            .font(.largeTitle.bold())
-                            .foregroundColor(.white)
-
-                        Text("Last edited: \(form.lastEdited.formatted(date: .abbreviated, time: .shortened))")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.horizontal)
-
-                    //----------------------------------------------------------------------
-                    // MARK: SECTIONS + FIELDS
-                    //----------------------------------------------------------------------
-                    ForEach(form.sections) { section in
-                        VStack(alignment: .leading, spacing: 16) {
-
-                            Text(section.title)
-                                .font(.title3.bold())
-                                .foregroundColor(.green)
-                                .padding(.horizontal)
-
-                            ForEach(section.fields) { field in
-                                FieldRenderer(form: form, field: field)
-                                    .environmentObject(mediaManager)
-                                    .padding(.horizontal)
-                            }
-                        }
-                    }
-
-                    Spacer(minLength: 40)
-                }
-                .padding(.top, 20)
-                .id(scrollID)
+                formContent
+                    .id(scrollID)
             }
             .background(Color.black.ignoresSafeArea())
             .navigationTitle(form.name)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        saveForm()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.green)
-                    }
-                }
-            }
-            .onAppear {
-                // Auto-scroll to top on open
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                    withAnimation(.easeInOut) {
-                        proxy.scrollTo(scrollID, anchor: .top)
-                    }
-                }
-            }
+            .toolbar { saveButton }
+            .onAppear { scrollToTop(proxy: proxy) }
             .alert("Form Saved", isPresented: $showSavedAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
@@ -91,6 +35,71 @@ struct FormRenderer: View {
             }
         }
         .preferredColorScheme(.dark)
+    }
+
+    @ViewBuilder
+    private var formContent: some View {
+        VStack(alignment: .leading, spacing: 28) {
+            formHeader
+                .padding(.horizontal)
+
+            formSections
+
+            Spacer(minLength: 40)
+        }
+        .padding(.top, 20)
+    }
+
+    @ViewBuilder
+    private var formHeader: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(form.name)
+                .font(.largeTitle.bold())
+                .foregroundColor(.white)
+
+            Text("Last edited: \(form.lastEdited.formatted(date: .abbreviated, time: .shortened))")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+        }
+    }
+
+    @ViewBuilder
+    private var formSections: some View {
+        ForEach(form.sections) { section in
+            VStack(alignment: .leading, spacing: 16) {
+                Text(section.title)
+                    .font(.title3.bold())
+                    .foregroundColor(.green)
+                    .padding(.horizontal)
+
+                ForEach(section.fields) { field in
+                    FieldRenderer(form: form, field: field)
+                        .environmentObject(mediaManager)
+                        .padding(.horizontal)
+                }
+            }
+        }
+    }
+
+    private var saveButton: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                saveForm()
+            } label: {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.green)
+            }
+        }
+    }
+
+    private func scrollToTop(proxy: ScrollViewProxy) {
+        // Auto-scroll to top on open
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            withAnimation(.easeInOut) {
+                proxy.scrollTo(scrollID, anchor: .top)
+            }
+        }
     }
 
     // ------------------------------------------------------------------
