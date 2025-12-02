@@ -3,7 +3,7 @@ import SwiftUI
 
 struct TemplatePickerSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Query(sort: [SortDescriptor(\.name)]) private var templates: [NPFormTemplate]
+    @Query(sort: [SortDescriptor<NPFormTemplate>(\.name)]) private var templates: [NPFormTemplate]
 
     var onSelect: (NPJobFormInstance) -> Void
 

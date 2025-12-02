@@ -4,10 +4,12 @@ import SwiftUI
 struct FormsLibraryView: View {
     @Environment(\.modelContext) private var context
 
-    @Query(sort: [SortDescriptor(\.lastEdited, order: .reverse)])
+    @Query(sort: [SortDescriptor<NPFormTemplate>(\.lastEdited, order: .reverse)])
     private var templates: [NPFormTemplate]
 
     @State private var showingNewTemplateSheet = false
+
+    init() {}
 
     var body: some View {
         NavigationStack {
