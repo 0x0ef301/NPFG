@@ -42,5 +42,22 @@ class NPJobFormSectionInstance {
         self.fields = fields
         self.form = form
     }
+
+    // MARK: - Binding compatibility
+
+    /// Provides a wrapped value interface so instances can be used with SwiftUI bindings
+    /// that expect a `wrappedValue` property (e.g., `ForEach($sections) { $section in ... }`).
+    ///
+    /// This mirrors the semantics of `Binding.wrappedValue`, allowing read/write access
+    /// to the underlying section instance when SwiftUI projects the model as a binding.
+    var wrappedValue: NPJobFormSectionInstance {
+        get { self }
+        set {
+            self.id = newValue.id
+            self.title = newValue.title
+            self.fields = newValue.fields
+            self.form = newValue.form
+        }
+    }
 }
 
