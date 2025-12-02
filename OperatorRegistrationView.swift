@@ -13,7 +13,7 @@ struct OperatorRegistrationView: View {
     @State private var fullName = ""
     @State private var phone = ""
     @State private var email = ""
-    @State private var preferred = OperatorProfile.PreferredContact.phone
+    @State private var preferred = PreferredContact.phone
 
     @State private var showInvalidAlert = false
     @FocusState private var focusedField: Field?
@@ -61,7 +61,7 @@ struct OperatorRegistrationView: View {
 
                 Section("Preferred Contact Method") {
                     Picker("Preferred", selection: $preferred) {
-                        ForEach(OperatorProfile.PreferredContact.allCases) { opt in
+                        ForEach(PreferredContact.allCases, id: \.self) { opt in
                             Text(opt.label).tag(opt)
                         }
                     }
@@ -85,6 +85,7 @@ struct OperatorRegistrationView: View {
                         Text("Save & Continue")
                             .frame(maxWidth: .infinity)
                     }
+
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
                     .disabled(fullName.isEmpty || email.isEmpty)

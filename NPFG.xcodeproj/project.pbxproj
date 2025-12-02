@@ -14,11 +14,22 @@
 		DF02949E2EA800BF00FFA8EF /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294992EA800BF00FFA8EF /* RootTabView.swift */; };
 		DF02949F2EA800BF00FFA8EF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF0294982EA800BF00FFA8EF /* README.md */; };
 		DF0294A52EA8060B00FFA8EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0294A42EA8060B00FFA8EF /* Assets.xcassets */; };
-		DF0294A72EA80C2000FFA8EF /* OperatorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294A62EA80C1600FFA8EF /* OperatorProfile.swift */; };
 		DF0294A92EA80D3200FFA8EF /* OperatorRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294A82EA80D2700FFA8EF /* OperatorRegistrationView.swift */; };
 		DF0294AB2EA80EE500FFA8EF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294AA2EA80EDF00FFA8EF /* ProfileView.swift */; };
 		DF0294AD2EA80F9300FFA8EF /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294AC2EA80F8F00FFA8EF /* SplashView.swift */; };
 		DF0294AF2EA80FB800FFA8EF /* AppRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294AE2EA80FB000FFA8EF /* AppRoot.swift */; };
+		DF0294B12EA8170300FFA8EF /* Introduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294B02EA816FE00FFA8EF /* Introduction.swift */; };
+		DF0294B32EA8172B00FFA8EF /* ActOverviewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294B22EA8172000FFA8EF /* ActOverviewContent.swift */; };
+		DF0294B52EA8175900FFA8EF /* ActOverviewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294B42EA8175300FFA8EF /* ActOverviewDetail.swift */; };
+		DF0294B72EA8604800FFA8EF /* ActFlowScaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294B62EA8604600FFA8EF /* ActFlowScaffold.swift */; };
+		DF0294B92EA860CB00FFA8EF /* Act1_OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294B82EA860C500FFA8EF /* Act1_OverviewView.swift */; };
+		DF0294BB2EA8620800FFA8EF /* Act2_OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294BA2EA8620600FFA8EF /* Act2_OverviewView.swift */; };
+		DF0294BD2EA86B8C00FFA8EF /* Act3_OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294BC2EA86B8900FFA8EF /* Act3_OverviewView.swift */; };
+		DF0294BF2EA86C8500FFA8EF /* Act4_OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294BE2EA86C7D00FFA8EF /* Act4_OverviewView.swift */; };
+		DF0294C12EA86CA100FFA8EF /* Act5_OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294C02EA86C9A00FFA8EF /* Act5_OverviewView.swift */; };
+		DF0294C32EA86D1900FFA8EF /* FinalCongratsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294C22EA86D1700FFA8EF /* FinalCongratsView.swift */; };
+		DF0294C52EB30A5B00FFA8EF /* EpilogueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294C42EB30A4600FFA8EF /* EpilogueView.swift */; };
+		DF0294C72EB3122B00FFA8EF /* Epilogue_OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0294C62EB3121800FFA8EF /* Epilogue_OverviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,16 +60,40 @@
 		DF0294982EA800BF00FFA8EF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF0294992EA800BF00FFA8EF /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
 		DF0294A42EA8060B00FFA8EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF0294A62EA80C1600FFA8EF /* OperatorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorProfile.swift; sourceTree = "<group>"; };
 		DF0294A82EA80D2700FFA8EF /* OperatorRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorRegistrationView.swift; sourceTree = "<group>"; };
 		DF0294AA2EA80EDF00FFA8EF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DF0294AC2EA80F8F00FFA8EF /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		DF0294AE2EA80FB000FFA8EF /* AppRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoot.swift; sourceTree = "<group>"; };
+		DF0294B02EA816FE00FFA8EF /* Introduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduction.swift; sourceTree = "<group>"; };
+		DF0294B22EA8172000FFA8EF /* ActOverviewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActOverviewContent.swift; sourceTree = "<group>"; };
+		DF0294B42EA8175300FFA8EF /* ActOverviewDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActOverviewDetail.swift; sourceTree = "<group>"; };
+		DF0294B62EA8604600FFA8EF /* ActFlowScaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActFlowScaffold.swift; sourceTree = "<group>"; };
+		DF0294B82EA860C500FFA8EF /* Act1_OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Act1_OverviewView.swift; sourceTree = "<group>"; };
+		DF0294BA2EA8620600FFA8EF /* Act2_OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Act2_OverviewView.swift; sourceTree = "<group>"; };
+		DF0294BC2EA86B8900FFA8EF /* Act3_OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Act3_OverviewView.swift; sourceTree = "<group>"; };
+		DF0294BE2EA86C7D00FFA8EF /* Act4_OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Act4_OverviewView.swift; sourceTree = "<group>"; };
+		DF0294C02EA86C9A00FFA8EF /* Act5_OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Act5_OverviewView.swift; sourceTree = "<group>"; };
+		DF0294C22EA86D1700FFA8EF /* FinalCongratsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalCongratsView.swift; sourceTree = "<group>"; };
+		DF0294C42EB30A4600FFA8EF /* EpilogueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpilogueView.swift; sourceTree = "<group>"; };
+		DF0294C62EB3121800FFA8EF /* Epilogue_OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Epilogue_OverviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DFA3D6FA2EDC070A00B75D0B /* Exceptions for "NPFG" folder in "NPFG" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DF0294672EA7FF3E00FFA8EF /* NPFG */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DF02946A2EA7FF3E00FFA8EF /* NPFG */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DFA3D6FA2EDC070A00B75D0B /* Exceptions for "NPFG" folder in "NPFG" target */,
+			);
 			path = NPFG;
 			sourceTree = "<group>";
 		};
@@ -70,6 +105,11 @@
 		DF0294842EA7FF3F00FFA8EF /* NPFGUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = NPFGUITests;
+			sourceTree = "<group>";
+		};
+		DFA3D6C12EDBBAC100B75D0B /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -102,11 +142,23 @@
 		DF02945F2EA7FF3E00FFA8EF = {
 			isa = PBXGroup;
 			children = (
+				DFA3D6C12EDBBAC100B75D0B /* Shared */,
+				DF0294C62EB3121800FFA8EF /* Epilogue_OverviewView.swift */,
+				DF0294C42EB30A4600FFA8EF /* EpilogueView.swift */,
+				DF0294C22EA86D1700FFA8EF /* FinalCongratsView.swift */,
+				DF0294C02EA86C9A00FFA8EF /* Act5_OverviewView.swift */,
+				DF0294BE2EA86C7D00FFA8EF /* Act4_OverviewView.swift */,
+				DF0294BC2EA86B8900FFA8EF /* Act3_OverviewView.swift */,
+				DF0294BA2EA8620600FFA8EF /* Act2_OverviewView.swift */,
+				DF0294B82EA860C500FFA8EF /* Act1_OverviewView.swift */,
+				DF0294B62EA8604600FFA8EF /* ActFlowScaffold.swift */,
+				DF0294B42EA8175300FFA8EF /* ActOverviewDetail.swift */,
+				DF0294B22EA8172000FFA8EF /* ActOverviewContent.swift */,
+				DF0294B02EA816FE00FFA8EF /* Introduction.swift */,
 				DF0294AE2EA80FB000FFA8EF /* AppRoot.swift */,
 				DF0294AC2EA80F8F00FFA8EF /* SplashView.swift */,
 				DF0294AA2EA80EDF00FFA8EF /* ProfileView.swift */,
 				DF0294A82EA80D2700FFA8EF /* OperatorRegistrationView.swift */,
-				DF0294A62EA80C1600FFA8EF /* OperatorProfile.swift */,
 				DF0294A42EA8060B00FFA8EF /* Assets.xcassets */,
 				DF0294942EA800BF00FFA8EF /* AppState.swift */,
 				DF0294952EA800BF00FFA8EF /* CreateJobStep.swift */,
@@ -148,6 +200,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				DF02946A2EA7FF3E00FFA8EF /* NPFG */,
+				DFA3D6C12EDBBAC100B75D0B /* Shared */,
 			);
 			name = NPFG;
 			packageProductDependencies = (
@@ -210,7 +263,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					DF0294672EA7FF3E00FFA8EF = {
 						CreatedOnToolsVersion = 26.0.1;
@@ -277,16 +330,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF0294B12EA8170300FFA8EF /* Introduction.swift in Sources */,
+				DF0294B52EA8175900FFA8EF /* ActOverviewDetail.swift in Sources */,
+				DF0294B32EA8172B00FFA8EF /* ActOverviewContent.swift in Sources */,
 				DF0294AB2EA80EE500FFA8EF /* ProfileView.swift in Sources */,
 				DF02949A2EA800BF00FFA8EF /* NPFieldApp.swift in Sources */,
 				DF02949B2EA800BF00FFA8EF /* CreateJobStep.swift in Sources */,
 				DF02949C2EA800BF00FFA8EF /* IntroFlowView.swift in Sources */,
-				DF0294A72EA80C2000FFA8EF /* OperatorProfile.swift in Sources */,
 				DF02949D2EA800BF00FFA8EF /* AppState.swift in Sources */,
 				DF02949E2EA800BF00FFA8EF /* RootTabView.swift in Sources */,
+				DF0294B72EA8604800FFA8EF /* ActFlowScaffold.swift in Sources */,
 				DF0294A92EA80D3200FFA8EF /* OperatorRegistrationView.swift in Sources */,
+				DF0294C32EA86D1900FFA8EF /* FinalCongratsView.swift in Sources */,
 				DF0294AD2EA80F9300FFA8EF /* SplashView.swift in Sources */,
+				DF0294BB2EA8620800FFA8EF /* Act2_OverviewView.swift in Sources */,
+				DF0294C12EA86CA100FFA8EF /* Act5_OverviewView.swift in Sources */,
+				DF0294BF2EA86C8500FFA8EF /* Act4_OverviewView.swift in Sources */,
+				DF0294C52EB30A5B00FFA8EF /* EpilogueView.swift in Sources */,
+				DF0294B92EA860CB00FFA8EF /* Act1_OverviewView.swift in Sources */,
 				DF0294AF2EA80FB800FFA8EF /* AppRoot.swift in Sources */,
+				DF0294BD2EA86B8C00FFA8EF /* Act3_OverviewView.swift in Sources */,
+				DF0294C72EB3122B00FFA8EF /* Epilogue_OverviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +442,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -434,6 +499,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -446,9 +512,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2226C2TDNN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NPFG/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Night Plinkers - Airgun SOPs";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Night Plinkers may access system media for audio playback during field documentation.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Night Plinkers uses the camera to capture photos and videos for field documentation.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Night Plinkers requires microphone access to record operator audio notes.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Night Plinkers uses your photo library to save captured photos and videos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Night Plinkers needs access to your photo library to import images and videos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -460,7 +534,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nightplinkers.com.NPFG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nightplinkers.NPFG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -479,9 +553,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2226C2TDNN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NPFG/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Night Plinkers - Airgun SOPs";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Night Plinkers may access system media for audio playback during field documentation.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Night Plinkers uses the camera to capture photos and videos for field documentation.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Night Plinkers requires microphone access to record operator audio notes.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Night Plinkers uses your photo library to save captured photos and videos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Night Plinkers needs access to your photo library to import images and videos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -493,7 +575,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nightplinkers.com.NPFG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nightplinkers.NPFG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;

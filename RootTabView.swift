@@ -10,8 +10,12 @@ struct RootTabView: View {
                 .tabItem { Label("Home", systemImage: "house.fill") }
             CaptureHubView()
                 .tabItem { Label("Capture", systemImage: "camera.viewfinder") }
-            JobsListView()
-                .tabItem { Label("Jobs", systemImage: "briefcase.fill") }
+//            JobsListView()
+//                .tabItem { Label("Jobs", systemImage: "briefcase.fill") }
+            NPJobListView()
+                .tabItem {
+                    Label("Jobs", systemImage: "briefcase")
+                }
             ReportsView()
                 .tabItem { Label("Reports", systemImage: "doc.richtext") }
             ProfileView()
@@ -37,20 +41,25 @@ struct HomeView: View {
                         .frame(width: 220, height: 220)
                         .padding(.top, 40)
 
-                    Text("Night Plinkers")
-                        .font(.largeTitle).bold()
-                        .foregroundColor(.white)
+                    Text("Night Plinkers\nAirgun Rodent Control")
+                         .font(.largeTitle.bold())
+                         .foregroundColor(.white)
+                         .multilineTextAlignment(.center)
+                         .frame(maxWidth: .infinity, alignment: .center)
 
-                    Text("Act 0: Welcome & Setup")
+                    Text("Standard Operating Procedures\nWelcome & Overview")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-
-                    NavigationLink("Start Intro") {
-                        IntroFlowView()
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    NavigationLink("Open Overview") {
+                        IntroductionView()
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
                     .font(.headline)
+
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.black.ignoresSafeArea())

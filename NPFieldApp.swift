@@ -1,13 +1,40 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct NPFieldApp: App {
     @StateObject private var appState = AppState()
+    @StateObject private var mediaManager = MediaManager.shared
+    
+//    var body: some Scene {
+//        WindowGroup {
+//            AppRoot()
+//                .environmentObject(appState)   // ← REQUIRED
+//        }
+//        .modelContainer(for: [
+//            OperatorProfile.self,
+//            NPJob.self,
+//            NPForm.self,
+//            NPFormSection.self,    // ← REQUIRED
+//            NPFormField.self,      // ← REQUIRED
+//            NPMediaItem.self
+//        ])
+//    }
     var body: some Scene {
-        WindowGroup {
-            AppRoot()
-                .environmentObject(appState)
-                .preferredColorScheme(.dark)   // keep global dark theme
+            WindowGroup {
+                AppRoot()
+                    .environmentObject(mediaManager)       // << REQUIRED
+                    .environmentObject(appState)   // ← REQUIRED
+
+                    .modelContainer(for: [
+                        NPJob.self,
+                        NPForm.self,
+                        NPFormSection.self,
+                        NPFormField.self,
+                        NPMediaItem.self
+                    ])
+            }
         }
-    }
 }
+
+

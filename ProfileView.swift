@@ -3,7 +3,6 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var appState: AppState
     @State private var showResetAlert = false
-    @State private var editing = false
 
     var body: some View {
         NavigationStack {
@@ -35,7 +34,7 @@ struct ProfileView: View {
 
                         // MARK: Preferred Contact
                         Section("Preferred Contact") {
-                            Text(profile.preferredContact.label)
+                            Text(profile.preferredContact.rawValue)
                         }
 
                         // MARK: XP and Badges
@@ -63,11 +62,14 @@ struct ProfileView: View {
 
                         // MARK: Edit and Reset
                         Section {
-                            NavigationLink("Edit Operator Details") {
+                            NavigationLink {
                                 OperatorEditView(profile: profile) { updated in
                                     appState.operatorProfile = updated
                                 }
+                            } label: {
+                                Text("Edit Operator Details")
                             }
+
                             Button(role: .destructive) {
                                 showResetAlert = true
                             } label: {
@@ -77,9 +79,9 @@ struct ProfileView: View {
                         } footer: {
                             Text("Reset removes your saved operator profile and progress, returning to the registration screen.")
                         }
+
                     }
                 } else {
-                    // fallback: show registration
                     OperatorRegistrationView()
                 }
             }
@@ -106,7 +108,8 @@ struct OperatorEditView: View {
     @State private var fullName: String
     @State private var phone: String
     @State private var email: String
-    @State private var preferred: OperatorProfile.PreferredContact
+    @State private var agency: String
+    @State private var preferred: PreferredContact
     @State private var showInvalidAlert = false
 
     let onSave: (OperatorProfile) -> Void
@@ -115,12 +118,15 @@ struct OperatorEditView: View {
         _fullName = State(initialValue: profile.fullName)
         _phone = State(initialValue: profile.phone)
         _email = State(initialValue: profile.email)
+        _agency = State(initialValue: profile.agency)
         _preferred = State(initialValue: profile.preferredContact)
         self.onSave = onSave
     }
 
     var body: some View {
         Form {
+
+            // MARK: Contact Info
             Section("Contact Info") {
                 TextField("Full Name", text: $fullName)
                 TextField("Phone", text: $phone)
@@ -129,29 +135,36 @@ struct OperatorEditView: View {
                     .keyboardType(.emailAddress)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
+                TextField("Agency / Company", text: $agency)
             }
 
+            // MARK: Preferred Contact
             Section("Preferred Contact") {
                 Picker("Preferred", selection: $preferred) {
-                    ForEach(OperatorProfile.PreferredContact.allCases) { method in
-                        Text(method.label).tag(method)
+                    ForEach(PreferredContact.allCases, id: \.self) { method in
+                        Text(method.rawValue).tag(method)
                     }
                 }
                 .pickerStyle(.segmented)
             }
 
+            // MARK: Save Button
             Section {
                 Button("Save Changes") {
+
                     guard validateEmail(email) else {
                         showInvalidAlert = true
                         return
                     }
+
                     let updated = OperatorProfile(
                         fullName: fullName.trimmingCharacters(in: .whitespacesAndNewlines),
                         phone: phone.trimmingCharacters(in: .whitespacesAndNewlines),
                         email: email.trimmingCharacters(in: .whitespacesAndNewlines),
+                        agency: agency.trimmingCharacters(in: .whitespacesAndNewlines),
                         preferredContact: preferred
                     )
+
                     onSave(updated)
                     dismiss()
                 }
@@ -174,4 +187,3 @@ struct OperatorEditView: View {
         email.contains("@") && email.contains(".")
     }
 }
-
